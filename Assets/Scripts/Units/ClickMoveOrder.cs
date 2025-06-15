@@ -5,13 +5,12 @@ public class ClickMoveOrder : MonoBehaviour
 {
 
     public SelectedList selectedList;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
 
-    // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(1)) // Right-click
+        if (Input.GetMouseButtonDown(1)) 
         {
+            Debug.Log("Right mouse button clicked, setting destination for selected units.");
             Vector2 position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             SetDestinationOfAllSelectedUnits(position);
         }
@@ -21,6 +20,7 @@ public class ClickMoveOrder : MonoBehaviour
     {
         foreach (GameObject unit in selectedList.selectedList)
         {
+            Debug.Log($"Setting destination for unit: {unit.name} to position: {position}");
             unit.GetComponent<Unit>().destination = position;
         }
     }

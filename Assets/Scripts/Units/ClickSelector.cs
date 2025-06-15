@@ -1,6 +1,7 @@
 using UnityEngine;
+using Unity.Netcode;
 
-public class ClickSelector : MonoBehaviour
+public class ClickSelector : NetworkBehaviour
 {
     public SelectedList selectedList;
 
@@ -14,6 +15,8 @@ public class ClickSelector : MonoBehaviour
                 GameObject clickedObject = hit.collider.gameObject;
                 if (clickedObject.CompareTag("Unit"))
                 {
+                    if (!clickedObject.GetComponent<NetworkBehaviour>().IsOwner) return;
+
                     Unit unitComponent = clickedObject.GetComponent<Unit>();
                     if (InputManager.Instance.IsShiftPressed() && !unitComponent.isSelected)
                     {
@@ -25,14 +28,6 @@ public class ClickSelector : MonoBehaviour
                     {
                         // If shift is pressed, toggle selection
                         unitComponent.isSelected = false;
-                    }
-                    else if (Input.GetKey(KeyCode.LeftAlt))
-                    {
-                        unitComponent.isSelected = false;
-                    }
-                    else if (Input.GetKey(KeyCode.LeftControl))
-                    {
-                        unitComponent.isSelected = true;
                     }
                     else
                     {

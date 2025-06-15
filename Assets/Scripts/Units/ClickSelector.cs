@@ -15,7 +15,18 @@ public class ClickSelector : MonoBehaviour
                 if (clickedObject.CompareTag("Unit"))
                 {
                     Unit unitComponent = clickedObject.GetComponent<Unit>();
-                    if (Input.GetKey(KeyCode.LeftShift))
+                    if (InputManager.Instance.IsShiftPressed() && !unitComponent.isSelected)
+                    {
+                        // If shift is pressed and unit is not selected, add to selection
+                        unitComponent.isSelected = true;
+                        selectedList.selectedList.Add(clickedObject);
+                    }
+                    else if (InputManager.Instance.IsShiftPressed() && unitComponent.isSelected)
+                    {
+                        // If shift is pressed, toggle selection
+                        unitComponent.isSelected = false;
+                    }
+                    else if (Input.GetKey(KeyCode.LeftAlt))
                     {
                         unitComponent.isSelected = false;
                     }

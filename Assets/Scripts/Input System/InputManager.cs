@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -5,8 +6,15 @@ public class InputManager : MonoBehaviour
 {
     public static InputManager Instance;
 
+
+    
+
+
     private Vector2 movementVector = new Vector2(0, 0);
     private float scaleVector = 0;
+
+    private bool shiftPressed = false;
+    
 
     private void Awake()
     {
@@ -24,6 +32,19 @@ public class InputManager : MonoBehaviour
 
     }
 
+    public void ShiftClick(InputAction.CallbackContext context)
+    {
+        if(context.performed)
+        {
+            shiftPressed = true;
+        }
+
+        if(context.canceled)
+        {
+            shiftPressed = false;
+        }
+    }
+
     public void Move(InputAction.CallbackContext context)
     {
         movementVector = context.ReadValue<Vector2>();
@@ -32,6 +53,12 @@ public class InputManager : MonoBehaviour
     public void Scale(InputAction.CallbackContext context)
     {
         scaleVector = context.ReadValue<float>();
+    }
+
+
+    public bool IsShiftPressed()
+    {
+        return shiftPressed;
     }
 
     public Vector2 GetMovementVector()

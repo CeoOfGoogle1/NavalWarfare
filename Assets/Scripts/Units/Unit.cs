@@ -22,6 +22,11 @@ public class Unit : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Move();
+    }
+
+    void Move()
+    {
         if (destination != Vector2.zero || isDecelerating)
         {
             Vector2 direction = destination - (Vector2)transform.position;

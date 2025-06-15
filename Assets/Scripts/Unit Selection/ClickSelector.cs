@@ -4,18 +4,22 @@ public class ClickSelector : MonoBehaviour
 {
     public SelectedList selectedList;
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit))
+            Debug.Log("Left mouse button clicked");
+
+            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+            if (hit.collider != null)
             {
+                Debug.Log("Hit object: " + hit.collider.gameObject.name);
+
                 GameObject clickedObject = hit.collider.gameObject;
                 if (clickedObject.CompareTag("Unit"))
                 {
+                    Debug.Log("Clicked on a Unit: " + clickedObject.name);
+
                     Unit unitComponent = clickedObject.GetComponent<Unit>();
                     if (Input.GetKey(KeyCode.LeftShift))
                     {

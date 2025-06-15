@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      civilian_jet_0: 7591535316285501299
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

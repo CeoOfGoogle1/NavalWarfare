@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      quad_autocannon_0: -5383163333395873872
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

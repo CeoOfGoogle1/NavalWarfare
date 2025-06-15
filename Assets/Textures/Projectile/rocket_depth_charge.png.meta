@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      rocket_depth_charge_0: 8698879751407079944
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

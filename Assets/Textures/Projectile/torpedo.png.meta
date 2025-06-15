@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      torpedo_0: -2376145196101976775
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

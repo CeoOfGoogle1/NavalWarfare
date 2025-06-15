@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      radar_plane_0: -3194752900264095412
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

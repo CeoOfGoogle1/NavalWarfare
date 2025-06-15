@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      interceptor_missile_0: 7804403643811539494
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      ballistic_missile_warhead_0: 7338284079338468555
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

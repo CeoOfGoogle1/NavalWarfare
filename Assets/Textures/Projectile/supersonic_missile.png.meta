@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      supersonic_missile_0: -78628062968899760
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

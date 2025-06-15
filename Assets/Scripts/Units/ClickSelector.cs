@@ -8,18 +8,12 @@ public class ClickSelector : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("Left mouse button clicked");
-
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
             if (hit.collider != null)
             {
-                Debug.Log("Hit object: " + hit.collider.gameObject.name);
-
                 GameObject clickedObject = hit.collider.gameObject;
                 if (clickedObject.CompareTag("Unit"))
                 {
-                    Debug.Log("Clicked on a Unit: " + clickedObject.name);
-
                     Unit unitComponent = clickedObject.GetComponent<Unit>();
                     if (Input.GetKey(KeyCode.LeftShift))
                     {
@@ -37,6 +31,22 @@ public class ClickSelector : MonoBehaviour
                         }
                         unitComponent.isSelected = true;
                     }
+                }
+                else
+                {
+                    // If clicked object is not a unit, deselect all units
+                    foreach (GameObject unit in selectedList.selectedList)
+                    {
+                        unit.GetComponent<Unit>().isSelected = false;
+                    }
+                }
+            }
+            else
+            {
+                // If no unit is clicked, deselect all units
+                foreach (GameObject unit in selectedList.selectedList)
+                {
+                    unit.GetComponent<Unit>().isSelected = false;
                 }
             }
         }

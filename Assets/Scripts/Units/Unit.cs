@@ -4,7 +4,8 @@ using UnityEngine.UIElements;
 
 public class Unit : NetworkBehaviour
 {
-    
+
+    [SerializeField] private GameObject borderBox;
     [SerializeField] private float maxSpeed;
     [SerializeField] private float acceleration;
     [SerializeField] private float turnSpeed;
@@ -72,14 +73,11 @@ public class Unit : NetworkBehaviour
     {
         if (isSelected == true)
         {
-            Transform child = transform.GetChild(0);
-            child.gameObject.SetActive(true);
-
+            borderBox.SetActive(true);
         }
         else
         {
-            Transform child = transform.GetChild(0);
-            child.gameObject.SetActive(false);
+            borderBox.gameObject.SetActive(false);
         }
     }
 

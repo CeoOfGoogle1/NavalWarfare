@@ -1,15 +1,17 @@
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class Unit : MonoBehaviour
+public class Unit : NetworkBehaviour
 {
-    [SerializeField] public bool isSelected;
-    [SerializeField] public float maxSpeed;
-    [SerializeField] public float acceleration;
-    [SerializeField] public float turnSpeed;
-    [SerializeField] public Vector2 destination;
+    
+    [SerializeField] private float maxSpeed;
+    [SerializeField] private float acceleration;
+    [SerializeField] private float turnSpeed;
+    [SerializeField] private Vector2 destination;
     private float currentSpeed;
     private bool isDecelerating = false;
+    private bool isSelected;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -23,6 +25,8 @@ public class Unit : MonoBehaviour
     void Update()
     {
         Move();
+
+        Draw();
     }
 
     void Move()
@@ -62,7 +66,10 @@ public class Unit : MonoBehaviour
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
             }
         }
+    }
 
+    private void Draw()
+    {
         if (isSelected == true)
         {
             Transform child = transform.GetChild(0);
@@ -74,5 +81,24 @@ public class Unit : MonoBehaviour
             Transform child = transform.GetChild(0);
             child.gameObject.SetActive(false);
         }
+    }
+
+    public bool IsSelected
+    {
+        get { return isSelected; }
+        set { isSelected = value; }
+    }
+
+    public void SetDestination(Vector2 newDestination)
+    {
+        Debug.Log($"Setting destination for {gameObject.name} to {newDestination}");
+        SetDestinationServerRpc(newDestination);
+    }
+
+    [ServerRpc]
+    private void SetDestinationServerRpc(Vector2 newDestination)
+    {
+        Debug.Log($"SERVER: Setting destination for {gameObject.name} to {newDestination}");
+        destination = newDestination;
     }
 }

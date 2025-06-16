@@ -18,24 +18,24 @@ public class ClickSelector : NetworkBehaviour
                     if (!clickedObject.GetComponent<NetworkBehaviour>().IsOwner) return;
 
                     Unit unitComponent = clickedObject.GetComponent<Unit>();
-                    if (InputManager.Instance.IsShiftPressed() && !unitComponent.isSelected)
+                    if (InputManager.Instance.IsShiftPressed() && !unitComponent.IsSelected)
                     {
                         // If shift is pressed and unit is not selected, add to selection
-                        unitComponent.isSelected = true;
+                        unitComponent.IsSelected = true;
                         selectedList.selectedList.Add(clickedObject);
                     }
-                    else if (InputManager.Instance.IsShiftPressed() && unitComponent.isSelected)
+                    else if (InputManager.Instance.IsShiftPressed() && unitComponent.IsSelected)
                     {
                         // If shift is pressed, toggle selection
-                        unitComponent.isSelected = false;
+                        unitComponent.IsSelected = false;
                     }
                     else
                     {
                         foreach (GameObject unit in selectedList.selectedList)
                         {
-                            unit.GetComponent<Unit>().isSelected = false;
+                            unit.GetComponent<Unit>().IsSelected = false;
                         }
-                        unitComponent.isSelected = true;
+                        unitComponent.IsSelected = true;
                     }
                 }
                 else
@@ -43,7 +43,7 @@ public class ClickSelector : NetworkBehaviour
                     // If clicked object is not a unit, deselect all units
                     foreach (GameObject unit in selectedList.selectedList)
                     {
-                        unit.GetComponent<Unit>().isSelected = false;
+                        unit.GetComponent<Unit>().IsSelected = false;
                     }
                 }
             }
@@ -52,7 +52,7 @@ public class ClickSelector : NetworkBehaviour
                 // If no unit is clicked, deselect all units
                 foreach (GameObject unit in selectedList.selectedList)
                 {
-                    unit.GetComponent<Unit>().isSelected = false;
+                    unit.GetComponent<Unit>().IsSelected = false;
                 }
             }
         }

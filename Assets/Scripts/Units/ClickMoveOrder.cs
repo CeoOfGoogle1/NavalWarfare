@@ -21,7 +21,7 @@ public class ClickMoveOrder : MonoBehaviour
         foreach (GameObject unit in selectedList.selectedList)
         {
             Debug.Log($"Setting destination for unit: {unit.name} to position: {position}");
-            unit.GetComponent<Unit>().destination = position;
+            unit.GetComponent<Unit>().SetDestination(position);
         }
     }
 }

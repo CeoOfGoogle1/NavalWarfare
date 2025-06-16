@@ -13,7 +13,7 @@ public class SelectedList : MonoBehaviour
         foreach (GameObject unit in allUnitsList)
         {
             // Check if the unit is selected
-            if (unit.GetComponent<Unit>().isSelected == true)
+            if (unit.GetComponent<Unit>().IsSelected == true)
             {
                 if (!selectedList.Contains(unit))
                 {

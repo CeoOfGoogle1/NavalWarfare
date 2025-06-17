@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "NavalWarfareUnity.sln"
+    "dotnet.defaultSolution": "NavalWarfare.sln"
 }

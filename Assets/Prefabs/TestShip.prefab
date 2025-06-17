@@ -221,7 +221,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8144bccf914a45b4e8f7b0294b216665, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isSelected: 0
+  ShowTopMostFoldoutHeaderGroup: 1
+  borderBox: {fileID: 0}
   maxSpeed: 1
   acceleration: 1
   turnSpeed: 30

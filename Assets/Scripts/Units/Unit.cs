@@ -1,3 +1,4 @@
+using System;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -10,6 +11,8 @@ public class Unit : NetworkBehaviour
     [SerializeField] private float acceleration;
     [SerializeField] private float turnSpeed;
     [SerializeField] private Vector2 destination;
+    [SerializeField] private Transform target;
+    [SerializeField] private GameObject[] turrets;
     private float currentSpeed;
     private bool isDecelerating = false;
     private bool isSelected;
@@ -28,6 +31,16 @@ public class Unit : NetworkBehaviour
         Move();
 
         Draw();
+
+        AimTurrets();
+    }
+
+    private void AimTurrets()
+    {
+        foreach (GameObject turret in turrets)
+        {
+            turret.GetComponent<Turret>().SetTarget(target);
+        }
     }
 
     void Move()
@@ -93,10 +106,41 @@ public class Unit : NetworkBehaviour
         SetDestinationServerRpc(newDestination);
     }
 
-    [ServerRpc]
+    [ServerRpc(RequireOwnership = false)]
     private void SetDestinationServerRpc(Vector2 newDestination)
     {
         Debug.Log($"SERVER: Setting destination for {gameObject.name} to {newDestination}");
         destination = newDestination;
+    }
+
+    public void SetTarget(Transform target)
+    {
+        var netObj = target.GetComponent<NetworkObject>();
+        if (netObj != null)
+        {
+            SetTargetServerRpc(netObj.NetworkObjectId);
+        }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void SetTargetServerRpc(ulong targetNetworkObjectId)
+    {
+        NetworkObject targetNetObj = NetworkManager.Singleton.SpawnManager.SpawnedObjects[targetNetworkObjectId];
+        if (targetNetObj != null)
+        {
+            target = targetNetObj.transform;
+
+            SetTargetClientRpc(targetNetworkObjectId);
+        }
+    }
+
+    [ClientRpc]
+    public void SetTargetClientRpc(ulong targetNetworkObjectId)
+    {
+        NetworkObject targetNetObj = NetworkManager.Singleton.SpawnManager.SpawnedObjects[targetNetworkObjectId];
+        if (targetNetObj != null)
+        {
+            target = targetNetObj.transform;
+        }
     }
 }

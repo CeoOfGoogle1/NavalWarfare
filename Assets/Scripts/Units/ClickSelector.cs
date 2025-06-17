@@ -7,7 +7,12 @@ public class ClickSelector : NetworkBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        ThrowRay();
+    }
+
+    private void ThrowRay()
+    {
+         if (Input.GetMouseButtonDown(0))
         {
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
             if (hit.collider != null)
@@ -57,4 +62,5 @@ public class ClickSelector : NetworkBehaviour
             }
         }
     }
+
 }

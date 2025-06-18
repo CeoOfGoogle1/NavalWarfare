@@ -11,13 +11,7 @@ public class Turret : MonoBehaviour
     private Vector3 targetVelocity;
     private Vector3 previousTurretPosition;
     private Vector3 turretVelocity;
-
-    private void Start()
-    {
-        if (target == null)
-            previousTargetPosition = target.position; // What the fuck does this code do????????
-    }
-
+    
     void Update()
     {
         Aim();
@@ -31,6 +25,8 @@ public class Turret : MonoBehaviour
 
     private void Aim()
     {
+        if (target == null) return;
+
         Vector3 targetPosition = target.position;
         Vector3 turretPosition = transform.position;
         targetVelocity = (targetPosition - previousTargetPosition) / Time.deltaTime;

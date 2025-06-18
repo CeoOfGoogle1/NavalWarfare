@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 3283b8dc5b9256541b04b0fc06b08e50
+guid: 4e7308607667bb246aab39d2ce95473b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8625433292866235999
-    second: jet_0
+      213: 44148876508678084
+    second: ally_helicopter_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,7 +100,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: jet_0
+      name: ally_helicopter_0
       rect:
         serializedVersion: 2
         x: 0
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f5eae1f51e1b3b770800000000000000
-      internalID: 8625433292866235999
+      spriteID: 4c748855b29dc9000800000000000000
+      internalID: 44148876508678084
       vertices: []
       indices: 
       edges: []
@@ -134,8 +134,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      jet_0: 8625433292866235999
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

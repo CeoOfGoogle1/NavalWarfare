@@ -11,7 +11,7 @@ public class Turret : MonoBehaviour
     private Vector3 targetVelocity;
     private Vector3 previousTurretPosition;
     private Vector3 turretVelocity;
-    
+
     void Update()
     {
         Aim();
@@ -42,7 +42,6 @@ public class Turret : MonoBehaviour
         Vector2 aimDirection = (predictedPosition - turretPosition).normalized;
 
         float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
-        //transform.rotation = Quaternion.Euler(0, 0, angle - 90);
         transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0, 0, angle - 90), Time.deltaTime * rotationSpeed); // Smooth rotation towards the target
     }
     

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 6ba763aa6666e644f9ce5af7b1ded118
+guid: b33345f66a036314fa47e9408abeb6ea
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1008618580273418649
-    second: modern_destroyer_0
+      213: 7090359049048956662
+    second: missing_helicopter_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: modern_destroyer_0
+      name: missing_helicopter_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 5
-        height: 33
+        width: 7
+        height: 7
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 76ea1f0cebaa002f0800000000000000
-      internalID: -1008618580273418649
+      spriteID: 6fe1a802df3066260800000000000000
+      internalID: 7090359049048956662
       vertices: []
       indices: 
       edges: []

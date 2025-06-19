@@ -5,8 +5,15 @@ using System;
 
 public class ClickSelector : NetworkBehaviour
 {
+
+    [SerializeField] private Transform selectionAreaTransform;
     public SelectedList selectedList;
     Vector2 startPosition = Vector2.zero;
+
+    private void Awake()
+    {
+        selectionAreaTransform.gameObject.SetActive(false);
+    }
 
     void Update()
     {
@@ -21,40 +28,60 @@ public class ClickSelector : NetworkBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             startPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            selectionAreaTransform.gameObject.SetActive(true);
+        }
+
+        if (Input.GetMouseButton(0))
+        {
+            Vector2 currentMousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 lowerLeft = new Vector2(
+                Mathf.Min(startPosition.x, currentMousePosition.x),
+                Mathf.Min(startPosition.y, currentMousePosition.y)
+            );
+            Vector2 upperRight = new Vector2(
+                Mathf.Max(startPosition.x, currentMousePosition.x),
+            Mathf.Max(startPosition.y, currentMousePosition.y)
+            );
+            Vector2 size = upperRight - lowerLeft;
+
+            selectionAreaTransform.position = lowerLeft;
+            selectionAreaTransform.localScale = new Vector3(size.x, size.y, 1f);
         }
 
 
         if (Input.GetMouseButtonUp(0))
-        {
-            if (startPosition == Vector2.zero) return;
-
-            if (!InputManager.Instance.IsShiftPressed())
             {
-                // If shift is not pressed, clear the selection list
-                foreach (GameObject unit in selectedList.selectedList)
+                if (startPosition == Vector2.zero) return;
+
+                selectionAreaTransform.gameObject.SetActive(false);
+
+                if (!InputManager.Instance.IsShiftPressed())
                 {
-                    unit.GetComponent<Unit>().IsSelected = false;
-                }
-                selectedList.selectedList.Clear();
-            }
-
-            Collider2D[] colliders = Physics2D.OverlapAreaAll(startPosition, Camera.main.ScreenToWorldPoint(Input.mousePosition));
-            foreach (Collider2D collider in colliders)
-            {
-                if (collider.CompareTag("Unit"))
-                {
-                    if (!collider.GetComponent<NetworkBehaviour>().IsOwner) return;
-
-                    Unit unitComponent = collider.GetComponent<Unit>();
-
-                    collider.GetComponent<Unit>().IsSelected = true;
-                    if (!selectedList.selectedList.Contains(collider.gameObject))
+                    // If shift is not pressed, clear the selection list
+                    foreach (GameObject unit in selectedList.selectedList)
                     {
-                        selectedList.selectedList.Add(collider.gameObject);
+                        unit.GetComponent<Unit>().IsSelected = false;
+                    }
+                    selectedList.selectedList.Clear();
+                }
+
+                Collider2D[] colliders = Physics2D.OverlapAreaAll(startPosition, Camera.main.ScreenToWorldPoint(Input.mousePosition));
+                foreach (Collider2D collider in colliders)
+                {
+                    if (collider.CompareTag("Unit"))
+                    {
+                        if (!collider.GetComponent<NetworkBehaviour>().IsOwner) return;
+
+                        Unit unitComponent = collider.GetComponent<Unit>();
+
+                        collider.GetComponent<Unit>().IsSelected = true;
+                        if (!selectedList.selectedList.Contains(collider.gameObject))
+                        {
+                            selectedList.selectedList.Add(collider.gameObject);
+                        }
                     }
                 }
             }
-        }
     }
 
     private void ThrowRay()

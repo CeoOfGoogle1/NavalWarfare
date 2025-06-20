@@ -116,7 +116,6 @@ public class Unit : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     private void SetDestinationServerRpc(Vector2 newDestination)
     {
-        Debug.Log($"SERVER: Setting destination for {gameObject.name} to {newDestination}");
         destination = newDestination;
     }
 

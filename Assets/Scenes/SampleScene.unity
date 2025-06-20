@@ -1232,7 +1232,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1276426685}
   - component: {fileID: 1276426684}
-  - component: {fileID: 1276426683}
+  - component: {fileID: 1276426686}
   m_Layer: 0
   m_Name: Fog
   m_TagString: Untagged
@@ -1240,23 +1240,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1276426683
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1276426682}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3f38342da521a94a91b78880502a1a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fogRevealMaterial: {fileID: 2100000, guid: 8cbd69b3b6b50654fb0d342e67d96015, type: 2}
-  fogMaterial: {fileID: 2100000, guid: a7fcdb7e94809af44a84a1dd14fcc247, type: 2}
-  selectedList: {fileID: 1764743605}
-  fogMaskRT: {fileID: 0}
-  defaultFadeAmountRatio: 0.25
 --- !u!212 &1276426684
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1327,6 +1310,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1276426686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1276426682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8650e22e2aab0c40943531214362fb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fogRevealMaterial: {fileID: 2100000, guid: 8cbd69b3b6b50654fb0d342e67d96015, type: 2}
+  fogMaterial: {fileID: 2100000, guid: a7fcdb7e94809af44a84a1dd14fcc247, type: 2}
+  selectedList: {fileID: 1764743605}
+  fogMaskRT: {fileID: 0}
+  defaultFadeAmountRatio: 0.25
 --- !u!1 &1634319442
 GameObject:
   m_ObjectHideFlags: 0

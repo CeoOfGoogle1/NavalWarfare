@@ -38,6 +38,8 @@ public class Unit : NetworkBehaviour
 
     private void AimTurrets()
     {
+        if (target == null) return;
+
         foreach (GameObject turret in turrets)
         {
             turret.GetComponent<Turret>().SetTarget(target);

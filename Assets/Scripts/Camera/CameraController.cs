@@ -9,14 +9,14 @@ public class CameraController : MonoBehaviour
 
     public void Move()
     {
-        this.transform.position += new Vector3(InputManager.Instance.GetMovementVector().x, InputManager.Instance.GetMovementVector().y, 0) * speed * Time.deltaTime;
+        this.transform.position += new Vector3(
+            InputManager.Instance.GetMovementVector().x,
+            InputManager.Instance.GetMovementVector().y, 0) *
+            Mathf.Pow(GetComponent<Camera>().orthographicSize, 0.8f) * speed * Time.deltaTime;
     }
 
     public void Scale()
     {
-        //this.GetComponent<Camera>().orthographicSize -= InputManager.Instance.GetScaleVector() * scaleSpeed * Time.deltaTime;
-        //Mathf.Clamp(this.GetComponent<Camera>().orthographicSize, 1f, 20f);
-
         float scaleChange = InputManager.Instance.GetScaleVector() * scaleSpeed * Time.deltaTime;
         float newScale = Mathf.Clamp(GetComponent<Camera>().orthographicSize - scaleChange, minScale, maxScale);
         GetComponent<Camera>().orthographicSize = newScale;

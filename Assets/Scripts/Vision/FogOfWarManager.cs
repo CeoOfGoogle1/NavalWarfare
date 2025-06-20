@@ -1,6 +1,7 @@
+using Unity.Netcode;
 using UnityEngine;
 
-public class FogOfWarManager : MonoBehaviour
+public class FogOfWarManager : NetworkBehaviour
 {
     public Material fogRevealMaterial; // uses "Hidden/FogOfWarMask" shader
     public Material fogMaterial; // uses "Sprites/FogOfWarShader2D"
@@ -29,6 +30,9 @@ public class FogOfWarManager : MonoBehaviour
         foreach (GameObject unit in selectedList.allUnitsList)
         {
             if (unit == null) continue;
+
+            if (!unit.GetComponent<NetworkObject>().IsOwner) continue;
+            
 
             Vector3 pos = unit.transform.position;
             Unit unitComp = unit.GetComponent<Unit>();

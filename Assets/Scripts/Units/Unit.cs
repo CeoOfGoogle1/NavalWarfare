@@ -13,6 +13,7 @@ public class Unit : NetworkBehaviour
     [SerializeField] private Vector2 destination;
     [SerializeField] private Transform target;
     [SerializeField] private GameObject[] turrets;
+    [SerializeField] public float visionRadius;
     private float currentSpeed;
     private bool isDecelerating = false;
     private bool isSelected;
@@ -98,6 +99,12 @@ public class Unit : NetworkBehaviour
     {
         get { return isSelected; }
         set { isSelected = value; }
+    }
+
+    public float VisionRadius
+    {
+        get { return visionRadius; }
+        set { visionRadius = value; }
     }
 
     public void SetDestination(Vector2 newDestination)

@@ -1,4 +1,3 @@
-using Unity.Netcode;
 using UnityEngine;
 
 public class FogOfWarManager : MonoBehaviour
@@ -30,7 +29,6 @@ public class FogOfWarManager : MonoBehaviour
         foreach (GameObject unit in selectedList.allUnitsList)
         {
             if (unit == null) continue;
-            if (!unit.GetComponent<NetworkBehaviour>().IsOwner) return;
 
             Vector3 pos = unit.transform.position;
             Unit unitComp = unit.GetComponent<Unit>();

@@ -43,13 +43,6 @@ public class ClickMoveOrder : MonoBehaviour
     int unitCount = selectedList.selectedList.Count;
     if (unitCount == 0) return;
 
-    if (unitCount == 1)
-    {
-        // Если только один юнит, просто перемещаем его к центру
-        selectedList.selectedList[0].GetComponent<Unit>().SetDestination(center);
-        return;
-    }
-
     float startRadius = 10f;      // Радиус самого внутреннего круга
     float radiusStep = 10f;       // Шаг между кругами
     float unitSpacing = 5f;      // Расстояние между юнитами по дуге

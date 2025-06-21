@@ -111,7 +111,6 @@ public class Unit : NetworkBehaviour
 
     public void SetDestination(Vector2 newDestination)
     {
-        Debug.Log($"Setting destination for {gameObject.name} to {newDestination}");
         SetDestinationServerRpc(newDestination);
     }
 

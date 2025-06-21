@@ -6,13 +6,8 @@ public class InputManager : MonoBehaviour
 {
     public static InputManager Instance;
 
-
-    
-
-
     private Vector2 movementVector = new Vector2(0, 0);
     private float scaleVector = 0;
-
     private bool shiftPressed = false;
     
 

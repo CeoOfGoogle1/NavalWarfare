@@ -77,21 +77,11 @@ public class Turret : MonoBehaviour
         GameObject visualBullet = Instantiate(bulletPrefab, spawnPoint.position, this.transform.rotation);
         bullet.GetComponent<Bullet>().SetOnlyVisual(true);
 
-        SpawnVisualBulletClientRpc(spawnPoint.position, this.transform.rotation);
-    }
-
-    [ClientRpc]
-    private void SpawnVisualBulletClientRpc(Vector3 position, Quaternion rotation)
-    {
-        if (NetworkManager.Singleton.IsServer) return;
-
-        GameObject bullet = Instantiate(bulletPrefab, position, rotation);
-        bullet.GetComponent<Bullet>().SetOnlyVisual(true);
+        ObjectSpawnManager.Instance.SpawnVisualBulletClientRpc(spawnPoint.position, this.transform.rotation);
     }
 
     public void SetTarget(Transform newTarget)
     {
         target = newTarget;
-        Debug.Log("Target set to: " + target.name);
     }
 }

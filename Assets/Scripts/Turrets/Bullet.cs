@@ -1,4 +1,5 @@
 using System;
+using Unity.Netcode;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
@@ -27,14 +28,19 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log("Bullet collided with: " + collision.name);
         if (!collision.CompareTag("Unit")) return;
+
+        if (collision.GetComponent<NetworkBehaviour>().IsOwner) return;
+
+        if (!isOnlyVisual)
+        {
+            // Deal damage to the unit
+            Debug.Log("DEALING DAMAGE");
+        }
 
         Destroy(gameObject);
 
-        if (isOnlyVisual) return;
-
-        //Deal Damage
-        Debug.Log("DEALING DAMAGE");
     }
 
     public void SetOnlyVisual(bool value)

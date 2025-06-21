@@ -32,7 +32,7 @@ public class DamageController : MonoBehaviour
         float fireChance = projectile.damage * projectile.penetration * (penetrated ? 10.0f : 1.0f);
         float floodChance = projectile.damage * projectile.penetration * (penetrated ? 10.0f : 1.0f);;
 
-        ShipComponent nearestComponent = GetNearestComponent(transform.position);
+        ShipComponent nearestComponent = GetNearestComponent(hitPosition);
         if (Random.value < fireChance)
         {
             nearestComponent.onFire = true;

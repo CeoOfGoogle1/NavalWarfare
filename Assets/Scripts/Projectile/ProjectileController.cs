@@ -2,12 +2,14 @@ using System;
 using Unity.Netcode;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class Projectile : MonoBehaviour
 {
     private bool isOnlyVisual = false;
     [SerializeField] private float speed;
     [SerializeField] private float lifetime = 5f;
     private float lifetimeTimer;
+    public float damage;
+    public float penetration;
 
     void Update()
     {
@@ -16,14 +18,13 @@ public class Bullet : MonoBehaviour
         lifetimeTimer += Time.deltaTime;
         if (lifetimeTimer >= lifetime)
         {
-            Sink();
+            Impact();
         }
     }
 
-    private void Sink()
+    private void Impact()
     {
         Destroy(gameObject);
-        // Optionally, you can add a sinking animation or effect here
     }
 
     void OnTriggerEnter2D(Collider2D collision)

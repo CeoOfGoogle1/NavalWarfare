@@ -11,7 +11,7 @@ public class Turret : MonoBehaviour
     [SerializeField] Transform[] bulletSpawnPoints;
 
     Transform target;
-    float initialVelocity = 10f; //what the fuck
+    float initialVelocity = 10f; // initial speed of the projectile
     private Vector3 previousTargetPosition;
     private Vector3 targetVelocity;
     private Vector3 previousTurretPosition;
@@ -71,11 +71,11 @@ public class Turret : MonoBehaviour
         if (!NetworkManager.Singleton.IsServer) return;
 
         GameObject bullet = Instantiate(bulletPrefab, spawnPoint.position, this.transform.rotation);
-        bullet.GetComponent<Bullet>().SetOnlyVisual(false);
+        bullet.GetComponent<Projectile>().SetOnlyVisual(false);
         bullet.GetComponent<Renderer>().enabled = false;
 
         GameObject visualBullet = Instantiate(bulletPrefab, spawnPoint.position, this.transform.rotation);
-        bullet.GetComponent<Bullet>().SetOnlyVisual(true);
+        bullet.GetComponent<Projectile>().SetOnlyVisual(true);
 
         ObjectSpawnManager.Instance.SpawnVisualBulletClientRpc(spawnPoint.position, this.transform.rotation);
     }

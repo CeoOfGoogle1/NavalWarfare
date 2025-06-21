@@ -32,6 +32,6 @@ public class ObjectSpawnManager : NetworkBehaviour
         if (NetworkManager.Singleton.IsServer) return;
 
         GameObject bullet = Instantiate(bulletPrefab, position, rotation);
-        bullet.GetComponent<Bullet>().SetOnlyVisual(true);
+        bullet.GetComponent<Projectile>().SetOnlyVisual(true);
     }
 }

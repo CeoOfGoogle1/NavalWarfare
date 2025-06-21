@@ -180,6 +180,9 @@ MonoBehaviour:
   target: {fileID: 0}
   turrets:
   - {fileID: 3148269187738320629}
+  - {fileID: 1934066113724926567}
+  - {fileID: 8560627464337436922}
+  - {fileID: 506906945441027074}
   visionRadius: 80
 --- !u!1 &4041510505721766558
 GameObject:
@@ -5278,6 +5281,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3652965872404177605, guid: 11f5be21a7952064eb7155273088c2b0, type: 3}
   m_PrefabInstance: {fileID: 1010928648647031838}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &8560627464337436922 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8704050075234864356, guid: 11f5be21a7952064eb7155273088c2b0, type: 3}
+  m_PrefabInstance: {fileID: 1010928648647031838}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6015148049501073937
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5458,6 +5466,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 11f5be21a7952064eb7155273088c2b0, type: 3}
+--- !u!1 &1934066113724926567 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8704050075234864356, guid: 11f5be21a7952064eb7155273088c2b0, type: 3}
+  m_PrefabInstance: {fileID: 7070037403379418755}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5813057039464752198 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3652965872404177605, guid: 11f5be21a7952064eb7155273088c2b0, type: 3}
@@ -5548,6 +5561,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 11f5be21a7952064eb7155273088c2b0, type: 3}
+--- !u!1 &506906945441027074 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8704050075234864356, guid: 11f5be21a7952064eb7155273088c2b0, type: 3}
+  m_PrefabInstance: {fileID: 9205949463508998374}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5581063127939709475 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3652965872404177605, guid: 11f5be21a7952064eb7155273088c2b0, type: 3}

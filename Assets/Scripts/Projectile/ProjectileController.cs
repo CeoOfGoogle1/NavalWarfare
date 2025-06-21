@@ -41,7 +41,6 @@ public class Projectile : MonoBehaviour
         }
 
         Destroy(gameObject);
-
     }
 
     public void SetOnlyVisual(bool value)

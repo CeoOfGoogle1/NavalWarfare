@@ -6,7 +6,7 @@ public class TurretController : MonoBehaviour
 {
     [Header("Turret Settings")]
     [SerializeField] private float turretCooldown = 5f;
-    [SerializeField] private float rotationSpeed = 60f; // Degrees per second
+    [SerializeField] public float rotationSpeed = 60f; // Degrees per second
     [SerializeField] Transform[] bulletSpawnPoints;
     Transform target;
     private Vector3 previousTargetPosition;
@@ -58,7 +58,7 @@ public class TurretController : MonoBehaviour
         turretVelocity = (turretPosition - previousTurretPosition) / Time.deltaTime;
         previousTurretPosition = turretPosition;
 
-        Vector3 relativeVelocity = targetVelocity - turretVelocity;
+        Vector3 relativeVelocity = targetVelocity;
         float distance = Vector3.Distance(turretPosition, targetPosition);
 
         float timeToTarget = distance / speed;
@@ -96,7 +96,6 @@ public class TurretController : MonoBehaviour
             damage,
             penetration
         );
-        //ObjectSpawnManager.Instance.SpawnVisualBulletClientRpc("big_shell", spawnPosition, this.transform.rotation);
     }
 
     public void SetTarget(Transform newTarget)

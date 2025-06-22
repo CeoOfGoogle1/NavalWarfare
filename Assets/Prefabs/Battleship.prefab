@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5118581684966438322}
   - component: {fileID: 8883295574241531856}
   - component: {fileID: 3690441570108665893}
+  - component: {fileID: 1120605687624817222}
   m_Layer: 0
   m_Name: Battleship
   m_TagString: Unit
@@ -81,7 +82,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.018729486, y: 0.18812239}
+  m_Offset: {x: 0.015129179, y: 0.20252353}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -91,7 +92,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.23208888, y: 2.3501546}
+  m_Size: {x: 0.3833022, y: 1.9757217}
   m_EdgeRadius: 0
 --- !u!114 &8310466467750068002
 MonoBehaviour:
@@ -179,8 +180,8 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   borderBox: {fileID: 5106421809524224328}
   maxSpeed: 1
-  acceleration: 1
-  turnSpeed: 15
+  acceleration: 0.1
+  turnSpeed: 40
   destination: {x: 0, y: 0}
   target: {fileID: 0}
   turrets:
@@ -206,7 +207,38 @@ MonoBehaviour:
   tickTimer: 0
   fireCount: 0
   floodCount: 0
-  components: []
+  components:
+  - {fileID: 9187229101119784950}
+  - {fileID: 3812693967900380894}
+  - {fileID: 3970918838974640948}
+  - {fileID: 8875624566831746376}
+--- !u!50 &1120605687624817222
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 609027245572878908}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1000
+  m_LinearDamping: 0.01
+  m_AngularDamping: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &4041510505721766558
 GameObject:
   m_ObjectHideFlags: 0
@@ -5084,10 +5116,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6917b1e86fb8f544ace56bb479e2cd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isMain: 1
+  defaultHealth: 10
+  disableRange: 0.5
   onFire: 0
   isFlooded: 0
-  health: 0
 --- !u!1 &5106421809524224328
 GameObject:
   m_ObjectHideFlags: 0
@@ -5219,10 +5251,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6917b1e86fb8f544ace56bb479e2cd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isMain: 1
+  defaultHealth: 10
+  disableRange: 0.5
   onFire: 0
   isFlooded: 0
-  health: 0
 --- !u!1 &8678908337618643743
 GameObject:
   m_ObjectHideFlags: 0
@@ -5354,10 +5386,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6917b1e86fb8f544ace56bb479e2cd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isMain: 1
+  defaultHealth: 10
+  disableRange: 0.5
   onFire: 0
   isFlooded: 0
-  health: 0
 --- !u!1 &9199220393042684363
 GameObject:
   m_ObjectHideFlags: 0
@@ -5402,10 +5434,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6917b1e86fb8f544ace56bb479e2cd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isMain: 0
+  defaultHealth: 10
+  disableRange: 0.5
   onFire: 0
   isFlooded: 0
-  health: 0
 --- !u!1001 &1010928648647031838
 PrefabInstance:
   m_ObjectHideFlags: 0

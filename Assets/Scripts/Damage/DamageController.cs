@@ -6,7 +6,7 @@ public class DamageController : MonoBehaviour
 {
     public float shipArmor;
     public float shipResistance;
-    public float tickInterval => shipResistance / 60f;
+    public float tickInterval => 10 * shipResistance;
     public float tickTimer;
     public int fireCount;
     public int floodCount;
@@ -47,7 +47,7 @@ public class DamageController : MonoBehaviour
 
         if (penetrated)
         {
-            nearestComponent.TakeDamage(1);
+            //nearestComponent.TakeDamage(1);
             Debug.Log($"Hit component {nearestComponent.name} with damage {damage} and penetration {penetration}. Effective armor: {effectiveArmor}. Penetrated: {penetrated}");
         }
     }
@@ -61,11 +61,8 @@ public class DamageController : MonoBehaviour
         {
             component.Tick();
 
-            if (component.isMain)
-            {
-                if (component.onFire) fireCount++;
-                if (component.isFlooded) floodCount++;
-            }
+            if (component.onFire) fireCount++;
+            if (component.isFlooded) floodCount++;
         }
 
         if (fireCount >= 3) AbandonShip();
@@ -82,6 +79,7 @@ public class DamageController : MonoBehaviour
         AbandonShip();
         Debug.Log("Ship is sinking!");
         // Implement logic for sinking the ship, e.g., triggering an animation
+        Destroy(gameObject);
     }
     private void AbandonShip()
     {

@@ -18,12 +18,17 @@ public class ProjectileController : MonoBehaviour
     {
         if (Vector2.Distance(startPosition, transform.position) >= maxRange)
         {
-            Impact();
+            Splash();
             return;
         }
     }
 
     private void Impact()
+    {
+        Destroy(gameObject);
+    }
+
+    private void Splash()
     {
         Destroy(gameObject);
     }
@@ -46,11 +51,11 @@ public class ProjectileController : MonoBehaviour
         }
         else if (collision.TryGetComponent(out DamageController damageController))
         {
-            /*damageController.ProjectileImpact(
+            damageController.ProjectileImpact(
                 transform.position,
                 damage,
                 penetration
-            );*/
+            );
 
             Impact();
         }

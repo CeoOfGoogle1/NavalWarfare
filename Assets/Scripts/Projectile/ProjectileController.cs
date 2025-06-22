@@ -2,23 +2,56 @@ using System;
 using Unity.Netcode;
 using UnityEngine;
 
-public class Projectile : MonoBehaviour
+public class ProjectileController : MonoBehaviour
 {
-    private bool isOnlyVisual = false;
-    [SerializeField] private float speed;
-    [SerializeField] private float lifetime = 5f;
-    private float lifetimeTimer;
-    public float damage;
-    public float penetration;
+    public SpriteRenderer spriteRenderer;
+    private float speed;
+    private float maxRange;
+    private float damage;
+    private float penetration;
+    private Vector2 startPosition;
+    private bool onlyVisual;
+
+    public static void SpawnProjectile(
+        Vector2 spawnPosition,
+        Vector2 direction,
+        Sprite sprite,
+        float speed,
+        float maxRange,
+        float damage,
+        float penetration
+    )
+    {
+        GameObject obj = new GameObject("Projectile");
+        obj.transform.position = spawnPosition;
+        obj.transform.up = direction;
+
+        var proj = obj.AddComponent<ProjectileController>();
+        proj.speed = speed;
+        proj.maxRange = maxRange;
+        proj.damage = damage;
+        proj.penetration = penetration;
+        proj.startPosition = spawnPosition;
+
+        var sr = obj.AddComponent<SpriteRenderer>();
+        sr.sprite = sprite;
+        proj.spriteRenderer = sr;
+
+        var col = obj.AddComponent<CircleCollider2D>();
+        col.isTrigger = true;
+
+        var rb = obj.AddComponent<Rigidbody2D>();
+        rb.gravityScale = 0f;
+        rb.linearVelocity = direction * speed;
+    }
+
 
     void Update()
     {
-        transform.position += transform.up * speed * Time.deltaTime;
-
-        lifetimeTimer += Time.deltaTime;
-        if (lifetimeTimer >= lifetime)
+        if (Vector2.Distance(startPosition, transform.position) >= maxRange)
         {
             Impact();
+            return;
         }
     }
 
@@ -29,22 +62,26 @@ public class Projectile : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Bullet collided with: " + collision.name);
-        if (!collision.CompareTag("Unit")) return;
-
-        if (collision.GetComponent<NetworkBehaviour>().IsOwner) return;
-
-        if (!isOnlyVisual)
+        if (collision.GetComponent<NetworkBehaviour>().IsOwner)
         {
-            // Deal damage to the unit
-            Debug.Log("DEALING DAMAGE");
+            Destroy(gameObject);
+            return;
+        }
+
+        if (collision.TryGetComponent(out DamageController ship))
+        {
+            ship.ProjectileImpact(
+                transform.position,
+                damage,
+                penetration
+            );
         }
 
         Destroy(gameObject);
     }
-
+    
     public void SetOnlyVisual(bool value)
     {
-        isOnlyVisual = value;
+        onlyVisual = value;
     }
 }

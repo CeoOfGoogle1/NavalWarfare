@@ -6,8 +6,6 @@ public class ObjectSpawnManager : NetworkBehaviour
 
     public static ObjectSpawnManager Instance;
 
-    [SerializeField] private GameObject bulletPrefab;
-
     private void Awake()
     {
 
@@ -27,11 +25,25 @@ public class ObjectSpawnManager : NetworkBehaviour
     
 
     [ClientRpc]
-    public void SpawnVisualBulletClientRpc(Vector3 position, Quaternion rotation)
+    public void SpawnVisualBulletClientRpc(string spriteName, Vector3 position, Quaternion rotation)
     {
         if (NetworkManager.Singleton.IsServer) return;
 
-        GameObject bullet = Instantiate(bulletPrefab, position, rotation);
-        bullet.GetComponent<Projectile>().SetOnlyVisual(true);
+        GameObject obj = new GameObject("Projectile");
+        obj.transform.position = position;
+        obj.transform.rotation = rotation;
+
+        var proj = obj.AddComponent<ProjectileController>();
+        proj.SetOnlyVisual(true);
+
+        Sprite sprite = Resources.Load<Sprite>("Textures/Projectiles/" + spriteName);
+        if (sprite == null)
+        {
+            Debug.LogError("Sprite not found: " + spriteName);
+            return;
+        }
+
+        var sr = obj.AddComponent<SpriteRenderer>();
+        sr.sprite = sprite;
     }
 }

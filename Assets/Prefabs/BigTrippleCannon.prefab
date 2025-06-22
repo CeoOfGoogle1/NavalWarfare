@@ -141,8 +141,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02876183b3698a0449844a3d9ef99059, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShowTopMostFoldoutHeaderGroup: 1
-  bulletPrefab: {fileID: 1261098292878182695, guid: 4703175ae2e011947ad9dee6b8de4dc6, type: 3}
   turretCooldown: 5
   rotationSpeed: 60
   bulletSpawnPoints:
@@ -150,6 +148,11 @@ MonoBehaviour:
   - {fileID: 3708062850651249826}
   - {fileID: 3301608441787558631}
   shootTimer: 0
+  bulletSprite: {fileID: 3431579083012193047, guid: 3663ba2fcf814114cab4b2900752203e, type: 3}
+  speed: 10
+  maxRange: 100
+  damage: 5
+  penetration: 10
 --- !u!1 &9140070936365550596
 GameObject:
   m_ObjectHideFlags: 0

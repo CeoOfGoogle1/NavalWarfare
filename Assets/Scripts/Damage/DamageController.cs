@@ -20,31 +20,36 @@ public class DamageController : MonoBehaviour
         {
             tickTimer = 0f;
             TickEffects();
+            Debug.Log($"Tick effects: Fire count = {fireCount}, Flood count = {floodCount}");
         }
     }
 
-    public void ProjectileImpact(Projectile projectile, Vector2 hitPosition)
+    public void ProjectileImpact(Vector2 hitPosition, float damage, float penetration)
     {
+        Debug.Log($"Projectile impact at {hitPosition} with damage {damage} and penetration {penetration}");
         float roll = Random.Range(-10f, 10f);
         float effectiveArmor = shipArmor + roll;
 
-        bool penetrated = projectile.penetration > effectiveArmor;
-        float fireChance = projectile.damage * projectile.penetration * (penetrated ? 10.0f : 1.0f);
-        float floodChance = projectile.damage * projectile.penetration * (penetrated ? 10.0f : 1.0f);;
+        bool penetrated = penetration > effectiveArmor;
+        float fireChance = damage * penetration * (penetrated ? 10.0f : 1.0f);
+        float floodChance = damage * penetration * (penetrated ? 10.0f : 1.0f);
 
         ShipComponent nearestComponent = GetNearestComponent(hitPosition);
         if (Random.value < fireChance)
         {
             nearestComponent.onFire = true;
+            Debug.Log($"Setting component {nearestComponent.name} on fire with damage {damage} and penetration {penetration}. Effective armor: {effectiveArmor}");
         }
         if (Random.value < floodChance)
         {
             nearestComponent.isFlooded = true;
+            Debug.Log($"Flooding component {nearestComponent.name} with damage {damage} and penetration {penetration}. Effective armor: {effectiveArmor}");
         }
 
         if (penetrated)
         {
             nearestComponent.TakeDamage(1);
+            Debug.Log($"Hit component {nearestComponent.name} with damage {damage} and penetration {penetration}. Effective armor: {effectiveArmor}. Penetrated: {penetrated}");
         }
     }
 
@@ -76,9 +81,13 @@ public class DamageController : MonoBehaviour
     private void Sink()
     {
         AbandonShip();
+        Debug.Log("Ship is sinking!");
+        // Implement logic for sinking the ship, e.g., triggering an animation
     }
     private void AbandonShip()
     {
-
+        Debug.Log("Abandon Ship!");
+        // Implement logic for abandoning the ship, e.g., triggering an animation, disabling controls, etc.
+        // This could also involve notifying other players or game systems about the ship's status.
     }
 }

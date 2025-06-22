@@ -1,22 +1,25 @@
-using System;
 using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.Animations;
 
-public class Turret : MonoBehaviour
+public class TurretController : MonoBehaviour
 {
-    [SerializeField] private GameObject bulletPrefab;
+    [Header("Turret Settings")]
     [SerializeField] private float turretCooldown = 5f;
     [SerializeField] private float rotationSpeed = 60f; // Degrees per second
     [SerializeField] Transform[] bulletSpawnPoints;
-
     Transform target;
-    float initialVelocity = 10f; // initial speed of the projectile
     private Vector3 previousTargetPosition;
     private Vector3 targetVelocity;
     private Vector3 previousTurretPosition;
     private Vector3 turretVelocity;
     [SerializeField] private float shootTimer;
+
+    [Header("Bullet Settings")]
+    public Sprite bulletSprite;
+    public float speed;
+    public float maxRange;
+    public float damage;
+    public float penetration;
 
 
     void Update()
@@ -39,7 +42,7 @@ public class Turret : MonoBehaviour
 
             foreach (Transform spawnPoint in bulletSpawnPoints)
             {
-                SpawnBullet(spawnPoint);
+                Fire(spawnPoint.position);
             }
         }
     }
@@ -58,7 +61,7 @@ public class Turret : MonoBehaviour
         Vector3 relativeVelocity = targetVelocity - turretVelocity;
         float distance = Vector3.Distance(turretPosition, targetPosition);
 
-        float timeToTarget = distance / initialVelocity;
+        float timeToTarget = distance / speed;
         Vector3 predictedPosition = targetPosition + relativeVelocity * timeToTarget;
         Vector2 aimDirection = (predictedPosition - turretPosition).normalized;
 
@@ -66,18 +69,21 @@ public class Turret : MonoBehaviour
         transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0, 0, angle - 90), Time.deltaTime * rotationSpeed); // Smooth rotation towards the target
     }
 
-    private void SpawnBullet(Transform spawnPoint)
+    private void Fire(Vector2 spawnPosition)
     {
         if (!NetworkManager.Singleton.IsServer) return;
 
-        GameObject bullet = Instantiate(bulletPrefab, spawnPoint.position, this.transform.rotation);
-        bullet.GetComponent<Projectile>().SetOnlyVisual(false);
-        bullet.GetComponent<Renderer>().enabled = false;
+        ProjectileController.SpawnProjectile(
+            spawnPosition,
+            transform.up,
+            bulletSprite,
+            speed,
+            maxRange,
+            damage,
+            penetration
+            );
 
-        GameObject visualBullet = Instantiate(bulletPrefab, spawnPoint.position, this.transform.rotation);
-        bullet.GetComponent<Projectile>().SetOnlyVisual(true);
-
-        ObjectSpawnManager.Instance.SpawnVisualBulletClientRpc(spawnPoint.position, this.transform.rotation);
+        ObjectSpawnManager.Instance.SpawnVisualBulletClientRpc("big_shell", spawnPosition, this.transform.rotation);
     }
 
     public void SetTarget(Transform newTarget)

@@ -42,7 +42,7 @@ public class Unit : NetworkBehaviour
 
         foreach (GameObject turret in turrets)
         {
-            turret.GetComponent<Turret>().SetTarget(target);
+            turret.GetComponent<TurretController>().SetTarget(target);
         }
     }
 

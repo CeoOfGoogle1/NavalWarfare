@@ -33,6 +33,7 @@ public class ShipComponent : MonoBehaviour
             TakeDamage(1);
             if (Random.value < 0.2f) nearestComponent.onFire = true;
             if (Random.value < 0.5f) onFire = false;
+            Debug.Log($"Component {name} is on fire. Current health: {health}");
         }
 
         if (isFlooded)
@@ -40,16 +41,18 @@ public class ShipComponent : MonoBehaviour
             TakeDamage(1);
             if (Random.value < 0.2f) nearestComponent.isFlooded = true;
             if (Random.value < 0.5f) isFlooded = false;
+            Debug.Log($"Component {name} is flooded. Current health: {health}");
         }
 
         if (Random.value <= 0.2f && health > 0)
         {
             health += 1; // repair
+            Debug.Log($"Repairing component {name}. Current health: {health}");
         }
     }
 
     private void DisableComponent()
     {
-
+        Debug.Log($"Disabling component {name}");
     }
 }

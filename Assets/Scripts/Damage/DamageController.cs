@@ -20,7 +20,6 @@ public class DamageController : MonoBehaviour
         {
             tickTimer = 0f;
             TickEffects();
-            Debug.Log($"Tick effects: Fire count = {fireCount}, Flood count = {floodCount}");
         }
     }
 

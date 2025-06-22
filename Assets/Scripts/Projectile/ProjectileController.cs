@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ProjectileController : MonoBehaviour
 {
+    private ulong firingShipNetworkId;
     public SpriteRenderer spriteRenderer;
     private float speed;
     private float maxRange;
@@ -11,39 +12,6 @@ public class ProjectileController : MonoBehaviour
     private float penetration;
     private Vector2 startPosition;
     private bool onlyVisual;
-
-    public static void SpawnProjectile(
-        Vector2 spawnPosition,
-        Vector2 direction,
-        Sprite sprite,
-        float speed,
-        float maxRange,
-        float damage,
-        float penetration
-    )
-    {
-        GameObject obj = new GameObject("Projectile");
-        obj.transform.position = spawnPosition;
-        obj.transform.up = direction;
-
-        var proj = obj.AddComponent<ProjectileController>();
-        proj.speed = speed;
-        proj.maxRange = maxRange;
-        proj.damage = damage;
-        proj.penetration = penetration;
-        proj.startPosition = spawnPosition;
-
-        var sr = obj.AddComponent<SpriteRenderer>();
-        sr.sprite = sprite;
-        proj.spriteRenderer = sr;
-
-        var col = obj.AddComponent<CircleCollider2D>();
-        col.isTrigger = true;
-
-        var rb = obj.AddComponent<Rigidbody2D>();
-        rb.gravityScale = 0f;
-        rb.linearVelocity = direction * speed;
-    }
 
 
     void Update()
@@ -62,26 +30,59 @@ public class ProjectileController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.GetComponent<NetworkBehaviour>().IsOwner)
+        if (!collision.CompareTag("Unit")) return;
+
+        if (collision.gameObject.TryGetComponent<NetworkObject>(out NetworkObject networkObject))
         {
-            Destroy(gameObject);
-            return;
+            if (networkObject.NetworkObjectId == firingShipNetworkId)
+            {
+                return; // Ignore collisions with the firing ship
+            }
         }
 
-        if (collision.TryGetComponent(out DamageController ship))
+        if (onlyVisual)
         {
-            ship.ProjectileImpact(
+            Impact();
+        }
+        else if (collision.TryGetComponent(out DamageController damageController))
+        {
+            /*damageController.ProjectileImpact(
                 transform.position,
                 damage,
                 penetration
-            );
-        }
+            );*/
 
-        Destroy(gameObject);
+            Impact();
+        }
     }
-    
+
     public void SetOnlyVisual(bool value)
     {
         onlyVisual = value;
+    }
+
+    public void SetParameters(
+        bool onlyVisual,
+        ulong firingShipNetworkId,
+        Vector2 spawnPosition,
+        Vector2 direction,
+        Sprite sprite,
+        float speed,
+        float maxRange,
+        float damage,
+        float penetration
+    )
+    {
+        transform.position = spawnPosition;
+        transform.up = direction;
+        spriteRenderer.sprite = sprite;
+
+        this.onlyVisual = onlyVisual;
+        this.firingShipNetworkId = firingShipNetworkId;
+        this.startPosition = spawnPosition;
+        this.speed = speed;
+        this.maxRange = maxRange;
+        this.damage = damage;
+        this.penetration = penetration;
     }
 }

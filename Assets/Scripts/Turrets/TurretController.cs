@@ -1,4 +1,5 @@
 using Unity.Netcode;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TurretController : MonoBehaviour
@@ -37,7 +38,6 @@ public class TurretController : MonoBehaviour
         shootTimer -= Time.deltaTime;
         if (shootTimer <= 0f)
         {
-            Debug.Log("Shooting Timer is up");
             shootTimer = turretCooldown;
 
             foreach (Transform spawnPoint in bulletSpawnPoints)
@@ -73,7 +73,9 @@ public class TurretController : MonoBehaviour
     {
         if (!NetworkManager.Singleton.IsServer) return;
 
-        ProjectileController.SpawnProjectile(
+        ObjectSpawnManager.SpawnProjectile(
+            false, // Only visual bullets are not used in this case
+            this.gameObject.GetComponentInParent<NetworkObject>().NetworkObjectId,
             spawnPosition,
             transform.up,
             bulletSprite,
@@ -81,9 +83,20 @@ public class TurretController : MonoBehaviour
             maxRange,
             damage,
             penetration
-            );
+        );
 
-        ObjectSpawnManager.Instance.SpawnVisualBulletClientRpc("big_shell", spawnPosition, this.transform.rotation);
+        ObjectSpawnManager.Instance.SpawnVisualProjectileClientRpc(
+            true,
+            this.gameObject.GetComponentInParent<NetworkObject>().NetworkObjectId,
+            spawnPosition,
+            transform.up,
+            "big_shell",
+            speed,
+            maxRange,
+            damage,
+            penetration
+        );
+        //ObjectSpawnManager.Instance.SpawnVisualBulletClientRpc("big_shell", spawnPosition, this.transform.rotation);
     }
 
     public void SetTarget(Transform newTarget)

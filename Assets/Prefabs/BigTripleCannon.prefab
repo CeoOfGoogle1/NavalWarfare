@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: 3652965872404177605}
   - component: {fileID: 4008434516031292715}
   m_Layer: 0
-  m_Name: BigTrippleCannon
+  m_Name: BigTripleCannon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -141,13 +141,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02876183b3698a0449844a3d9ef99059, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turretCooldown: 5
+  turretCooldown: 1
+  magazineSize: 1
+  reloadTime: 10
   rotationSpeed: 60
   bulletSpawnPoints:
   - {fileID: 7971792444842564896}
   - {fileID: 3708062850651249826}
   - {fileID: 3301608441787558631}
-  shootTimer: 0
+  baseInaccuracy: 1
+  initialInaccuracy: 100
+  progressiveAccuracy: 1
   bulletSprite: {fileID: 3431579083012193047, guid: 3663ba2fcf814114cab4b2900752203e, type: 3}
   speed: 10
   maxRange: 100

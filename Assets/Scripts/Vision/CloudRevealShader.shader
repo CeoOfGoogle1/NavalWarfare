@@ -1,20 +1,19 @@
-Shader "Unlit/FogDisplayShader"
+Shader "Unlit/CloudRevealShader"
 {
     Properties
     {
-        _FogColor("Fog Color", Color) = (0.05, 0.1, 0.2, 1.0)
-        _FogMask("Fog Mask", 2D) = "white" {}
+        _Position("Position", Vector) = (0,0,0,0)
+        _RevealRadius("Reveal Radius", Float) = 5.0
+        _FadeAmount("Fade Amount", Float) = 3.0
     }
     SubShader
     {
-        Tags { "RenderType"="Transparent" "Queue"="Transparent-10" }
-        LOD 100
-
+        Tags { "RenderType"="Opaque" }
         Pass
         {
-            Blend SrcAlpha OneMinusSrcAlpha
-            Cull Off
             ZWrite Off
+            Cull Off
+            Blend One One // additive blending for overlapping vision areas
 
             CGPROGRAM
             #pragma vertex vert
@@ -29,29 +28,25 @@ Shader "Unlit/FogDisplayShader"
             struct v2f {
                 float2 uv : TEXCOORD0;
                 float4 vertex : SV_POSITION;
-                float2 worldPos : TEXCOORD1;
             };
 
-            sampler2D _FogMask;
-            fixed4 _FogColor;
+            float4 _Position;
+            float _RevealRadius;
+            float _FadeAmount;
 
             v2f vert(appdata_t v)
             {
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
-                float4 world = mul(unity_ObjectToWorld, v.vertex);
-                o.worldPos = world.xy;
                 o.uv = v.uv;
                 return o;
             }
 
             fixed4 frag(v2f i) : SV_Target
             {
-                // Sample the fog mask (white = revealed, black = fog)
-                float reveal = tex2D(_FogMask, i.uv).r;
-                float alpha = 1.0 - reveal; // invert reveal mask to fog alpha
-
-                return _FogColor * alpha;
+                float dist = distance(i.uv, _Position.xy);
+                float alpha = 0.0 + smoothstep(_RevealRadius, _RevealRadius - _FadeAmount, dist);
+                return fixed4(alpha, alpha, alpha, alpha);
             }
             ENDCG
         }

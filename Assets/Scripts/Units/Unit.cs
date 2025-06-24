@@ -1,5 +1,4 @@
 using Unity.Netcode;
-using UnityEditor.Callbacks;
 using UnityEngine;
 
 public class Unit : NetworkBehaviour
@@ -9,10 +8,12 @@ public class Unit : NetworkBehaviour
     [SerializeField] public float maxSpeed;
     [SerializeField] private float acceleration;
     [SerializeField] public float turnSpeed;
+    [SerializeField] private bool isPlane;
     [SerializeField] private Vector2 destination;
     [SerializeField] private Transform target;
     [SerializeField] private GameObject[] turrets;
     [SerializeField] public float visionRadius;
+    [SerializeField] public float cloudVisionRadius;
     private float currentSpeed;
     private bool isDecelerating = false;
     private bool isSelected;
@@ -55,7 +56,7 @@ public class Unit : NetworkBehaviour
             Vector2 position2d = rb.position;
             Vector2 direction = destination - position2d;
 
-            if (!isDecelerating && direction.magnitude < 1f)
+            if (!isDecelerating && direction.magnitude < 1f && !isPlane)
             {
                 isDecelerating = true;
             }

@@ -1,4 +1,4 @@
-Shader "Hidden/FogOfWarMask"
+Shader "Unlit/FogRevealShader"
 {
     Properties
     {

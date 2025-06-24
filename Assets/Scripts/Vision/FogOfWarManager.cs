@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class FogOfWarManager : NetworkBehaviour
 {
-    public Material fogRevealMaterial; // uses "Hidden/FogOfWarMask" shader
-    public Material fogMaterial; // uses "Sprites/FogOfWarShader2D"
+    public Material fogRevealMaterial;
+    public Material fogMaterial;
     public SelectedList selectedList;
     public RenderTexture fogMaskRT;
     public float defaultFadeAmountRatio = 0.25f;

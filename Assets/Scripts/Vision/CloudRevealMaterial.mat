@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: FogMaterial
-  m_Shader: {fileID: 4800000, guid: deab4df430ca3cf4dba50dc6438f4bf4, type: 3}
+  m_Name: CloudRevealMaterial
+  m_Shader: {fileID: 4800000, guid: 0dacfcafeda61554f8a9e917861f7a37, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -27,14 +27,6 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _CloudMask:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _FogMask:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -50,11 +42,12 @@ Material:
     m_Ints: []
     m_Floats:
     - _EnableExternalAlpha: 0
+    - _FadeAmount: 0.012
+    - _RevealRadius: 0.048
     - _ZWrite: 0
     m_Colors:
-    - _CloudColor: {r: 0.16909933, g: 0.23508449, b: 0.3773585, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _FogColor: {r: 0.33735314, g: 0.40015963, b: 0.5377358, a: 0.78039217}
+    - _Position: {r: 0.5, g: 0.5, b: 0, a: 0}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

@@ -1,13 +1,13 @@
-Shader "Unlit/FogDisplayShader"
+Shader "Unlit/CloudDisplayShader"
 {
     Properties
     {
-        _FogColor("Fog Color", Color) = (0.05, 0.1, 0.2, 1.0)
-        _FogMask("Fog Mask", 2D) = "white" {}
+        _CloudColor("Cloud Color", Color) = (0.05, 0.1, 0.2, 1.0)
+        _CloudMask("Cloud Mask", 2D) = "white" {}
     }
     SubShader
     {
-        Tags { "RenderType"="Transparent" "Queue"="Transparent-10" }
+        Tags { "RenderType"="Transparent" "Queue"="Transparent" }
         LOD 100
 
         Pass
@@ -32,8 +32,8 @@ Shader "Unlit/FogDisplayShader"
                 float2 worldPos : TEXCOORD1;
             };
 
-            sampler2D _FogMask;
-            fixed4 _FogColor;
+            sampler2D _CloudMask;
+            fixed4 _CloudColor;
 
             v2f vert(appdata_t v)
             {
@@ -47,11 +47,11 @@ Shader "Unlit/FogDisplayShader"
 
             fixed4 frag(v2f i) : SV_Target
             {
-                // Sample the fog mask (white = revealed, black = fog)
-                float reveal = tex2D(_FogMask, i.uv).r;
-                float alpha = 1.0 - reveal; // invert reveal mask to fog alpha
+                // Sample the cloud mask (white = revealed, black = cloud)
+                float reveal = tex2D(_CloudMask, i.uv).r;
+                float alpha = 1.0 - reveal; // invert reveal mask to cloud alpha
 
-                return _FogColor * alpha;
+                return _CloudColor * alpha;
             }
             ENDCG
         }

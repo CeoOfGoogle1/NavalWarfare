@@ -1,23 +1,28 @@
+using System;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Unit : NetworkBehaviour
 {
-
+    [Header("Components")]
     [SerializeField] private GameObject borderBox;
-    [SerializeField] public float maxSpeed;
-    [SerializeField] private float acceleration;
-    [SerializeField] public float turnSpeed;
-    [SerializeField] private bool isPlane;
-    [SerializeField] private Vector2 destination;
-    [SerializeField] private Transform target;
     [SerializeField] private GameObject[] turrets;
-    [SerializeField] public float visionRadius;
-    [SerializeField] public float cloudVisionRadius;
+
+    [Header("Unit Settings")]
+    [SerializeField] private float maxSpeed;
+    [SerializeField] private float acceleration;
+    [SerializeField] private float turnSpeed;
+    
+    [Header("Vision Settings")]
+    [SerializeField] private float visionRadius;
+    [SerializeField] private float cloudVisionRadius;
+
+    private Vector2 destination;
+    private Transform target;
     private float currentSpeed;
     private bool isDecelerating = false;
     private bool isSelected;
-    private Rigidbody2D rb;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -25,8 +30,6 @@ public class Unit : NetworkBehaviour
         isSelected = false;
 
         destination = Vector2.zero; // Initialize destination to the unit's current position
-
-        rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -51,47 +54,43 @@ public class Unit : NetworkBehaviour
 
     void Move()
     {
+        if (!IsServer) return;
+
         if (destination != Vector2.zero || isDecelerating)
-        {
-            Vector2 position2d = rb.position;
-            Vector2 direction = destination - position2d;
-
-            if (!isDecelerating && direction.magnitude < 1f && !isPlane)
             {
-                isDecelerating = true;
-            }
+                Vector2 direction = destination - (Vector2)transform.position;
 
-            if (isDecelerating)
-            {
-                // Decelerate
-                currentSpeed -= acceleration * Time.deltaTime;
-                currentSpeed = Mathf.Max(currentSpeed, 0f);
-                rb.linearVelocity = transform.up * currentSpeed;
-
-                if (currentSpeed == 0f)
+                if (!isDecelerating && direction.magnitude < 1f)
                 {
-                    isDecelerating = false;
-                    destination = Vector2.zero;
-                    rb.linearVelocity = Vector2.zero; // Stop the unit when it reaches the destination
+                    isDecelerating = true;
+                }
+
+                if (isDecelerating)
+                {
+                    // Decelerate
+                    currentSpeed -= acceleration * Time.deltaTime;
+                    currentSpeed = Mathf.Max(currentSpeed, 0f);
+                    transform.position += transform.up * currentSpeed * Time.deltaTime;
+
+                    if (currentSpeed == 0f)
+                    {
+                        isDecelerating = false;
+                        destination = Vector2.zero;
+                    }
+                }
+                else
+                {
+                    // Accelerate
+                    currentSpeed += acceleration * Time.deltaTime;
+                    currentSpeed = Mathf.Min(currentSpeed, maxSpeed);
+                    transform.position += transform.up * currentSpeed * Time.deltaTime;
+
+                    // Rotate towards the destination
+                    float targetAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
+                    Quaternion targetRotation = Quaternion.Euler(0, 0, targetAngle);
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
                 }
             }
-            else
-            {
-                // Accelerate
-                currentSpeed += acceleration * Time.deltaTime;
-                currentSpeed = Mathf.Min(currentSpeed, maxSpeed);
-                rb.linearVelocity = transform.up * currentSpeed;
-
-                // Rotate towards the destination
-                float targetAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
-                float angle = Mathf.MoveTowardsAngle(transform.eulerAngles.z, targetAngle, turnSpeed * Time.deltaTime);
-                rb.MoveRotation(angle);
-            }
-        }
-        else
-        {
-            rb.linearVelocity = Vector2.zero;
-        }
     }
 
     private void Draw()
@@ -104,18 +103,6 @@ public class Unit : NetworkBehaviour
         {
             borderBox.gameObject.SetActive(false);
         }
-    }
-
-    public bool IsSelected
-    {
-        get { return isSelected; }
-        set { isSelected = value; }
-    }
-
-    public float VisionRadius
-    {
-        get { return visionRadius; }
-        set { visionRadius = value; }
     }
 
     public void SetDestination(Vector2 newDestination)
@@ -158,5 +145,35 @@ public class Unit : NetworkBehaviour
         {
             target = targetNetObj.transform;
         }
+    }
+
+    public bool IsSelected
+    {
+        get => isSelected;
+        set => isSelected = value;
+    }
+
+    public float VisionRadius
+    {
+        get => visionRadius;
+        set => visionRadius = value;
+    }
+    
+    public float CloudVisionRadius
+    {
+        get => cloudVisionRadius;
+        set => cloudVisionRadius = value;
+    }
+
+    public float MaxSpeed
+    {
+        get => maxSpeed;
+        set => maxSpeed = value;
+    }
+
+    public float TurnSpeed
+    {
+        get => turnSpeed;
+        set => turnSpeed = value;
     }
 }

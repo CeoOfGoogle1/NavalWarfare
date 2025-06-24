@@ -38,7 +38,7 @@ public class CloudManager : NetworkBehaviour
             Unit unitComp = unit.GetComponent<Unit>();
             if (unitComp == null) continue;
 
-            float visionRadius = unitComp.cloudVisionRadius;
+            float visionRadius = unitComp.CloudVisionRadius;
             float fadeAmount = visionRadius * defaultFadeAmountRatio;
 
             // Convert world position to normalized UV in [0,1] coordinates for the cloud mask

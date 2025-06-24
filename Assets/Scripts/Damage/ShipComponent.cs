@@ -77,16 +77,16 @@ public class ShipComponent : MonoBehaviour
         switch (componentName)
         {
             case "Engine":
-                if (isDisable) { unit.maxSpeed = 0; break; }
+                if (isDisable) { unit.MaxSpeed = 0; break; }
                 if (Random.value < 0.2f)
                 {
                     if (isBuff)
                     {
-                        unit.maxSpeed *= 1.2f;
+                        unit.MaxSpeed *= 1.2f;
                     }
                     else
                     {
-                        unit.maxSpeed *= 0.8f;
+                        unit.MaxSpeed *= 0.8f;
                     }
                 }
                 break;
@@ -133,16 +133,16 @@ public class ShipComponent : MonoBehaviour
                 }
                 break;
             case "Rudder":
-                if (isDisable) { unit.turnSpeed = 0; break; }
+                if (isDisable) { unit.TurnSpeed = 0; break; }
                 if (Random.value < 0.2f)
                 {
                     if (isBuff)
                     {
-                        unit.turnSpeed *= 1.2f;
+                        unit.TurnSpeed *= 1.2f;
                     }
                     else
                     {
-                        unit.turnSpeed *= 0.8f;
+                        unit.TurnSpeed *= 0.8f;
                     }
                 }
                 break;

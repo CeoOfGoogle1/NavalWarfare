@@ -38,7 +38,7 @@ public class FogOfWarManager : NetworkBehaviour
             Unit unitComp = unit.GetComponent<Unit>();
             if (unitComp == null) continue;
 
-            float visionRadius = unitComp.visionRadius;
+            float visionRadius = unitComp.VisionRadius;
             float fadeAmount = visionRadius * defaultFadeAmountRatio;
 
             // Convert world position to normalized UV in [0,1] coordinates for the fog mask

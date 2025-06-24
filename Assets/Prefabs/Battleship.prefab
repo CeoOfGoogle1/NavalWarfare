@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5118581684966438322}
   - component: {fileID: 8883295574241531856}
   - component: {fileID: 3690441570108665893}
-  - component: {fileID: 1120605687624817222}
+  - component: {fileID: 3529437344404223677}
   m_Layer: 0
   m_Name: Battleship
   m_TagString: Unit
@@ -179,17 +179,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   borderBox: {fileID: 5106421809524224328}
-  maxSpeed: 1
-  acceleration: 0.1
-  turnSpeed: 40
-  isPlane: 0
-  destination: {x: 0, y: 0}
-  target: {fileID: 0}
   turrets:
   - {fileID: 3148269187738320629}
   - {fileID: 1934066113724926567}
   - {fileID: 8560627464337436922}
   - {fileID: 506906945441027074}
+  maxSpeed: 1
+  acceleration: 0.1
+  turnSpeed: 5
   visionRadius: 80
   cloudVisionRadius: 160
 --- !u!114 &3690441570108665893
@@ -214,7 +211,7 @@ MonoBehaviour:
   - {fileID: 3812693967900380894}
   - {fileID: 3970918838974640948}
   - {fileID: 8875624566831746376}
---- !u!50 &1120605687624817222
+--- !u!50 &3529437344404223677
 Rigidbody2D:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -226,8 +223,8 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1000
-  m_LinearDamping: 0.01
+  m_Mass: 1
+  m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}

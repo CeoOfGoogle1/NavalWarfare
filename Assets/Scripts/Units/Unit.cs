@@ -17,7 +17,7 @@ public class Unit : NetworkBehaviour
     [Header("Vision Settings")]
     [SerializeField] private float visionRadius;
     [SerializeField] private float cloudVisionRadius;
-
+    private float currentAngularVelocity;
     private Vector2 destination;
     private Transform target;
     private float currentSpeed;
@@ -85,10 +85,15 @@ public class Unit : NetworkBehaviour
                     currentSpeed = Mathf.Min(currentSpeed, maxSpeed);
                     transform.position += transform.up * currentSpeed * Time.deltaTime;
 
-                    // Rotate towards the destination
+                    // Smoothly rotate towards the target direction
                     float targetAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
-                    Quaternion targetRotation = Quaternion.Euler(0, 0, targetAngle);
-                    transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
+                    float angle = Mathf.DeltaAngle(transform.eulerAngles.z, targetAngle);
+                    float angularAcceleration = turnSpeed * 2;
+                    currentAngularVelocity += Mathf.Clamp(angle, -1f, 1f) * angularAcceleration* Time.deltaTime;
+                    currentAngularVelocity = Mathf.Clamp(currentAngularVelocity, -turnSpeed, turnSpeed);
+                    float rotateStep = currentAngularVelocity * Time.deltaTime;
+                    if (Mathf.Abs(angle) < Mathf.Abs(rotateStep)) rotateStep = angle;
+                    transform.Rotate(0, 0, rotateStep);
                 }
             }
     }
@@ -114,6 +119,7 @@ public class Unit : NetworkBehaviour
     private void SetDestinationServerRpc(Vector2 newDestination)
     {
         destination = newDestination;
+        isDecelerating = false;
     }
 
     public void SetTarget(Transform target)
